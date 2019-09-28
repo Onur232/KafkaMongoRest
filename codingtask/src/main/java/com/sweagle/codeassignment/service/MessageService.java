@@ -36,9 +36,10 @@ public class MessageService {
 	}
 
 	@KafkaListener(topics = TOPIC, groupId = "group_json", containerFactory = "userKafkaListenerFactory")
-	public void consumeJson(KafkaMessage message) {
-		databaseService.saveMessage(message);
+	public KafkaMessage consumeJson(KafkaMessage message) {
 		System.out.println("Consumed JSON Message: " + message.toString());
+		databaseService.saveMessage(message);
+		return message;
 	}
 
 }

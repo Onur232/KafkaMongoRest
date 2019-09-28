@@ -20,9 +20,10 @@ public class DatabaseService {
 	@Autowired
 	private MessageRepository messageRepository;
 
-	public void saveMessage(KafkaMessage message) {
+	public KafkaMessage saveMessage(KafkaMessage message) {
 		messageRepository.save(message);
 		logger.debug("Message Saved Successfully To Mongo: " + message.toString());
+		return message;
 	}
 
 	public List<String> getMessagesByReceiver(@PathVariable("receiver") String receiver) {
